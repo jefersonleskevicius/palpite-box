@@ -53,7 +53,7 @@ export default async (req, res) => {
   } catch (err) {
     res.end(JSON.stringify({
       showCoupon: false,
-      message: err
+      message: ''
     }))
   }
 }
