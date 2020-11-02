@@ -1,4 +1,4 @@
-import { GoogleSpreadsheet, GoogleSpreadSheet } from 'google-spreadsheet'
+import { GoogleSpreadsheet } from 'google-spreadsheet'
 import moment from 'moment'
 
 const doc = new GoogleSpreadsheet(process.env.SHEET_DOC_ID)
@@ -13,7 +13,7 @@ export default async (req, res) => {
   try {
     await doc.useServiceAccountAuth({
       client_email: process.env.SHEET_CLIENT_EMAIL,
-      client_private_key: process.env.SHEET_CLIENT_PRIVATE_KEY
+      private_key: process.env.SHEET_PRIVATE_KEY
     })
     await doc.loadInfo()
 
@@ -50,7 +50,9 @@ export default async (req, res) => {
     }))
 
   } catch (err) {
-    console.log(err)
-    res.end('error')
+    res.end(JSON.stringify({
+      showCoupon: false,
+      message: ''
+    }))
   }
 }
